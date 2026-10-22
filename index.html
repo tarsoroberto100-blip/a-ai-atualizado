@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Açaí Retrô Express - Auditoria QA & Testes</title>
+    <style>
+        :root {
+            --primary: #4a154b;
+            --secondary: #611f69;
+            --accent: #2eb67d;
+            --bg: #f8f5fa;
+            --card: #ffffff;
+            --text: #2d3748;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: var(--card);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(74, 21, 75, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        header h1 { margin: 0; font-size: 1.8rem; }
+        header p { margin: 5px 0 0; opacity: 0.85; font-size: 0.95rem; }
+
+        .conteudo { padding: 25px; }
+
+        .secao-titulo {
+            font-size: 1.1rem;
+            color: var(--primary);
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        .item-info span { display: block; font-size: 0.85rem; color: #718096; }
+
+        input[type="number"], input[type="text"], select {
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .input-qtd { width: 80px; text-align: center; font-weight: bold; }
+
+        .resumo-card {
+            background-color: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 20px;
+        }
+
+        .linha-resumo {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .total-destaque {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary);
+            border-top: 2px solid #cbd5e0;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-pedir {
+            width: 100%;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .badge-qa {
+            display: inline-block;
+            background: #e2e8f0;
+            color: #4a5568;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-left: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🍧 Açaí Retrô Express</h1>
+        <p>Monte sua tigela personalizada <span class="badge-qa">Ambiente de Testes UC11</span></p>
+    </header>
+
+    <div class="conteudo">
+        <div class="secao-titulo">1. Escolha a Tigela Base</div>
+        <div class="item-row">
+            <div class="item-info">
+                <strong>Tigela Tradicional 500ml</strong>
+                <span>Açaí puro batido com banana</span>
+            </div>
+            <span>R$ 18,00</span>
+        </div>
+
+        <div class="secao-titulo" style="margin-top: 20px;">2. Acompanhamentos Extras</div>
+        <div class="item-row">
+            <div class="item-info">
+                <strong>Paçoca de Amendoim</strong>
+                <span>R$ 2,00 por porção</span>
+            </div>
+            <input type="number" id="qtdPacoca" class="input-qtd" value="0">
+        </div>
+
+        <div class="item-row">
+            <div class="item-info">
+                <strong>Leite Condensado</strong>
+                <span>R$ 3,00 por cobertura</span>
+            </div>
+            <input type="number" id="qtdLeiteCondensado" class="input-qtd" value="0">
+        </div>
+
+        <div class="secao-titulo" style="margin-top: 20px;">3. Entrega & Cupom</div>
+        <div class="item-row">
+            <div class="item-info"><strong>Bairro de Destino</strong></div>
+            <select id="bairroEntrega">
+                <option value="padrao">Centro (Taxa: R$ 5,00)</option>
+            </select>
+        </div>
+
+        <div class="item-row">
+            <div class="item-info"><strong>Cupom Promocional</strong></div>
+            <input type="text" id="cupomInput" placeholder="Ex: RETRO10" style="width: 150px;">
+        </div>
+
+        <div class="resumo-card">
+            <div class="linha-resumo">
+                <span>Subtotal Itens:</span>
+                <span id="txtSubtotal">R$ 18.00</span>
+            </div>
+            <div class="linha-resumo" style="color: #c53030;">
+                <span>Taxa Fixa de Entrega:</span>
+                <span>R$ 5.00</span>
+            </div>
+            <div class="linha-resumo total-destaque">
+                <span>Total a Pagar:</span>
+                <span id="txtTotal">R$ 23.00</span>
+            </div>
+        </div>
+
+        <button class="btn-pedir" onclick="finalizarPedido()">Finalizar Pedido</button>
+    </div>
+</div>
+
+<script>
+    // ==============================================================
+    // MOTOR DE TESTES EM NAVEGADOR (Disponível globalmente)
+    // ==============================================================
+    function assert(nomeDoTeste, resultadoObtido, resultadoEsperado) {
+        if (resultadoObtido === resultadoEsperado) {
+            console.log(`%c[✔ PASSOU] ${nomeDoTeste}`, "color: #27ae60; font-weight: bold; font-size: 12px;");
+        } else {
+            console.error(`[❌ FALHOU] ${nomeDoTeste} | Esperado: ${resultadoEsperado} | Obtido: ${resultadoObtido}`);
+        }
+    }
+
+    // ==================
+    // LÓGICA DO SISTEMA 
+    // ==================
+    function calcularSubtotalAcai(qtdPacoca, qtdLeiteCond) {
+        let precoBase = 18.00;
+        let precoPacoca = 2.00;
+        let precoLeiteCond = 0.30;
+
+        return precoBase + (qtdPacoca * precoPacoca) + (qtdLeiteCond * precoLeiteCond);
+    }
+
+    function calcularFaturaFinal(subtotal, frete, cupom) {
+        let total = subtotal + frete;
+
+        if (cupom === "RETRO10") {
+            total = total - 10.00;
+        }
+
+        return total;
+    }
+
+    function atualizarCalculos() {
+        let qPacoca = parseInt(document.getElementById("qtdPacoca").value) || 0;
+        let qLeite = parseInt(document.getElementById("qtdLeiteCondensado").value) || 0;
+        let cupom = document.getElementById("cupomInput").value.trim().toUpperCase();
+        let taxaFixa = "5.00";
+
+        let subtotal = calcularSubtotalAcai(qPacoca, qLeite);
+        let totalFinal = calcularFaturaFinal(subtotal, taxaFixa, cupom);
+
+        document.getElementById("txtSubtotal").innerText = "R$ " + subtotal.toFixed(2);
+        document.getElementById("txtTotal").innerText = "R$ " + totalFinal.toFixed(2);
+    }
+
+    function finalizarPedido() {
+        alert("Pedido enviado para a cozinha com sucesso!");
+    }
+
+    document.getElementById("qtdPacoca").addEventListener("input", atualizarCalculos);
+    document.getElementById("qtdLeiteCondensado").addEventListener("input", atualizarCalculos);
+    document.getElementById("cupomInput").addEventListener("input", atualizarCalculos);
+
+    atualizarCalculos();
+</script>
+
+<!-- Importa a suíte gerada pelos alunos via IA -->
+<script src="testes.js"></script>
+
+</body>
+</html>
