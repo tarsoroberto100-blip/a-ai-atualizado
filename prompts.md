@@ -7,7 +7,7 @@ Analise os seguintes critérios de aceitação de uma aplicação de pedidos:
 4. Cupom promocional 'RETRO10': concede R$ 10,00 de desconto no valor final.
 5. A aplicação não pode aceitar quantidades negativas.
 
-Gere uma tabela de Casos de Teste contendo:
+Gere uma tabela com 10 de Casos de Teste contendo:
 - ID do Teste
 - Cenário / Descrição
 - Entradas (Dados de teste)
